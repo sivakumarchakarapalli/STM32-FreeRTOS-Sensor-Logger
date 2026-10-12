@@ -1,11 +1,10 @@
 /*
  * STM32 FreeRTOS Sensor Data Logger
- * Main application entry point
+ * Target: NUCLEO-F439ZI
  *
  * NOTE:
- * This is a preliminary scaffold.
- * STM32 initialization must be adapted to the
- * selected development board using STM32CubeIDE.
+ * This file must be integrated with the
+ * STM32CubeIDE-generated project.
  */
 
 #include "main.h"
@@ -13,22 +12,27 @@
 
 int main(void)
 {
-    /* Initialize the STM32 Hardware Abstraction Layer. */
+    /* Initialize HAL */
     HAL_Init();
 
-    /* TODO: Configure the system clock. */
-    /* TODO: Initialize GPIO. */
-    /* TODO: Initialize UART. */
-    /* TODO: Initialize the sensor interface. */
+    /* Configure the system clock */
+    SystemClock_Config();
 
-    /* Initialize the FreeRTOS application. */
+    /* Initialize configured peripherals */
+    MX_GPIO_Init();
+    MX_USART3_UART_Init();
+
+    /* Initialize FreeRTOS application */
     MX_FREERTOS_Init();
 
-    /* TODO: Start the FreeRTOS scheduler using
-       the board's configured FreeRTOS integration. */
+    /*
+     * Start the scheduler using the generated
+     * FreeRTOS integration.
+     */
+    osKernelStart();
 
+    /* Should not normally reach this loop */
     while (1)
     {
-        /* The scheduler should manage application tasks. */
     }
 }
